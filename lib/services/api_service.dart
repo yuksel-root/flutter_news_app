@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_news_app_with_api/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/models/news_article.dart';
+import 'package:logger/logger.dart';
 
 class ApiService {
   Dio _dio = new Dio();
@@ -17,21 +18,21 @@ class ApiService {
       Iterable list = result['articles'];
       return list.map((article) => NewsArticle.fromJson(article)).toList();
     } else {
-      throw Exception("Failled to get top news");
+      throw Exception("Failed to get top news with country");
     }
   }
 
   Future<List<NewsArticle>> fetchTopHeadlines() async {
-    String baseUrl = ApiConstants.BASE_URL;
-
-    final response = await _dio.get(baseUrl);
+    final response = await _dio.get(ApiConstants.DEF_URL);
+    var logger = Logger();
+    logger.d("fetchToplines");
 
     if (response.statusCode == 200) {
       final result = response.data;
       Iterable list = result['articles'];
       return list.map((article) => NewsArticle.fromJson(article)).toList();
     } else {
-      throw Exception("Failled to get top news");
+      throw Exception("Failed to get top news with default country");
     }
   }
 }
