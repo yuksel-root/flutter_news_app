@@ -18,7 +18,7 @@ class NewsArticleListViewModel with ChangeNotifier {
   void topHeadlinesByCountry(String country) async {
     var logger = Logger();
     this.loadingStatus = LoadingStatus.searching;
-    logger.d("loadingStateus = " + loadingStatus.toString());
+    logger.d("topc loadingState = " + loadingStatus.toString());
     notifyListeners();
 
     List<NewsArticle> newsArticles =
@@ -30,14 +30,16 @@ class NewsArticleListViewModel with ChangeNotifier {
 
     if (this.articles.isEmpty) {
       this.loadingStatus = LoadingStatus.empty;
+      logger.d("topc" + loadingStatus.toString());
     } else {
       this.loadingStatus = LoadingStatus.completed;
+      logger.d("topc" + loadingStatus.toString());
     }
 
     notifyListeners();
   }
 
-  Future topHeadlines() async {
+  void topHeadlines() async {
     var logger = Logger();
     List<NewsArticle> newsArticles = await ApiService().fetchTopHeadlines();
     logger.d("topHeadlines");
@@ -49,14 +51,12 @@ class NewsArticleListViewModel with ChangeNotifier {
 
     if (this.articles.isEmpty) {
       this.loadingStatus = LoadingStatus.empty;
+      logger.d("top" + loadingStatus.toString());
     } else {
       this.loadingStatus = LoadingStatus.completed;
+      logger.d("top" + loadingStatus.toString());
     }
 
     notifyListeners();
-    return newsArticles
-        .map((article) => NewsArticleViewModel(article: article))
-        .toList();
-    ;
   }
 }

@@ -23,16 +23,14 @@ class _NewsViewState extends State<NewsView> {
   @override
   Widget build(BuildContext context) {
     var logger = Logger();
-    var listViewModel2 =
-        Provider.of<NewsArticleListViewModel>(context).topHeadlines();
     var listViewModel = Provider.of<NewsArticleListViewModel>(context);
     var articleCount = listViewModel.articles.length.toString();
-    logger.d(listViewModel.articles.isEmpty);
-    logger.d("article count = " + articleCount);
+    //logger.d(listViewModel.articles.isEmpty);
+    //logger.d("article count = " + articleCount);
     return Scaffold(
       appBar: AppBar(),
       body: (Column(
-        children: [Text(listViewModel2.toString()), Text(articleCount)],
+        children: [Text(articleCount)],
       )),
     );
   }

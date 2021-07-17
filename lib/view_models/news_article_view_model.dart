@@ -1,9 +1,11 @@
 import 'package:flutter_news_app_with_api/models/news_article.dart';
 
 class NewsArticleViewModel {
-  NewsArticle _newsArticle;
+  late NewsArticle _newsArticle;
 
-  NewsArticleViewModel({required NewsArticle article}) : _newsArticle = article;
+  NewsArticleViewModel({required NewsArticle article}) {
+    _newsArticle = article;
+  }
 
   String get title {
     return _newsArticle.title;
