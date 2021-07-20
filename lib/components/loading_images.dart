@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class LoadingImages extends StatelessWidget {
   final imageUrl;
   const LoadingImages({Key? key, required this.imageUrl}) : super(key: key);
-
+// child:Image.network(listViewModel.articles[index].imageUrl)
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
@@ -12,8 +12,9 @@ class LoadingImages extends StatelessWidget {
       imageBuilder: (context, imageProvider) {
         return Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(image: imageProvider, fit: BoxFit.cover)),
+            borderRadius: BorderRadius.circular(20),
+            image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+          ),
         );
       },
       placeholder: (context, url) => Center(

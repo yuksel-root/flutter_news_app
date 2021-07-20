@@ -1,4 +1,5 @@
 import 'package:flutter_news_app_with_api/models/news_article.dart';
+import 'package:intl/intl.dart';
 
 class NewsArticleViewModel {
   late NewsArticle _newsArticle;
@@ -28,6 +29,8 @@ class NewsArticleViewModel {
   }
 
   String get publishedAt {
-    return _newsArticle.publishedAt;
+    final dateTime = DateFormat('yyyy-MM-ddTHH:mm:ssZ')
+        .parse(_newsArticle.publishedAt, true);
+    return DateFormat.yMMMMEEEEd('en-us').format(dateTime).toString();
   }
 }

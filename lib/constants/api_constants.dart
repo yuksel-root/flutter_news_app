@@ -1,12 +1,13 @@
 class ApiConstants {
-  static const String API_KEY = 'cafd035f5d764660adf678dfcf14b982';
+  static const String apiKey = 'cafd035f5d764660adf678dfcf14b982';
+  static const String baseUrl = 'https://newsapi.org/v2/';
+  static const String topHeadlines = 'top-headlines?country=';
 
-  static const String BASE_URL =
-      'https://newsapi.org/v2/top-headlines?country=';
-  static const String DEF_URL = BASE_URL + 'tr&apiKey=$API_KEY';
+  static const String defaultTopHeadlinesUrl =
+      baseUrl + topHeadlines + 'tr&apiKey=$apiKey';
 
   static String headlinesFor(String country) {
-    return BASE_URL + '$country&apiKey=$API_KEY';
+    return baseUrl + topHeadlines + '$country&apiKey=$apiKey';
   }
 
   static const Map<String, dynamic> Countries = {

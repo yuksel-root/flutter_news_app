@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/news_grid.dart';
+import 'package:flutter_news_app_with_api/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -26,16 +26,42 @@ class _NewsViewState extends State<NewsView> {
   Widget build(BuildContext context) {
     var logger = Logger();
     var listViewModel = Provider.of<NewsArticleListViewModel>(context);
-
+    logger.d("article_length = " + listViewModel.articles.length.toString());
     /*  listViewModel.articles.forEach((element) {
       // return Text(listViewModel.articles[index].title);
-      //  child:Image.network(listViewModel.articles[index].imageUrl)
+      // 
       logger.d(element.title);
     }); */
     return Scaffold(
-      appBar: AppBar(),
-      body: NewsGrid(
-        articles: listViewModel.articles,
+      appBar: AppBar(
+        title: Center(child: Text('News App')),
+        actions: [
+          PopupMenuButton(
+            onSelected: (country) {
+              listViewModel
+                  .topHeadlinesByCountry(ApiConstants.Countries[country]);
+            },
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (_) {
+              return ApiConstants.Countries.keys
+                  .map((v) => PopupMenuItem(
+                        value: v,
+                        child: Text(v),
+                      ))
+                  .toList();
+            },
+          )
+        ],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: NewsGrid(
+              articles: listViewModel.articles,
+            ),
+          ),
+        ],
       ),
     );
   }

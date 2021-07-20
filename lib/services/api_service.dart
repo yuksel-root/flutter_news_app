@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_news_app_with_api/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/models/news_article.dart';
-import 'package:logger/logger.dart';
 
 class ApiService {
   late Dio _dio; //= new Dio();
@@ -23,9 +22,7 @@ class ApiService {
   }
 
   Future<List<NewsArticle>> fetchTopHeadlines() async {
-    final response = await _dio.get(ApiConstants.DEF_URL);
-    var logger = Logger();
-    //logger.d("fetchToplines");
+    final response = await _dio.get(ApiConstants.defaultTopHeadlinesUrl);
 
     if (response.statusCode == 200) {
       final result = response.data;
