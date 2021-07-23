@@ -89,41 +89,6 @@ class NewsArticleDetailsView extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Text(this.article.description,
-                  style: TextStyle(fontSize: 16, wordSpacing: 3)),
-              SizedBox(
-                height: 20,
-              ),
-              Text(this.article.description,
-                  style: TextStyle(fontSize: 16, wordSpacing: 3)),
-              SizedBox(
-                height: 20,
-              ),
-              Text(this.article.description,
-                  style: TextStyle(fontSize: 16, wordSpacing: 3)),
-              SizedBox(
-                height: 20,
-              ),
-              Text(this.article.description,
-                  style: TextStyle(fontSize: 16, wordSpacing: 3)),
-              SizedBox(
-                height: 20,
-              ),
-              Text(this.article.description,
-                  style: TextStyle(fontSize: 16, wordSpacing: 3)),
-              SizedBox(
-                height: 20,
-              ),
-              Text(this.article.description,
-                  style: TextStyle(fontSize: 16, wordSpacing: 3)),
-              SizedBox(
-                height: 20,
-              ),
-              Text(this.article.description,
-                  style: TextStyle(fontSize: 16, wordSpacing: 3)),
-              SizedBox(
-                height: 20,
-              ),
             ],
           ),
         ),

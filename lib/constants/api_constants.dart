@@ -10,11 +10,28 @@ class ApiConstants {
     return baseUrl + topHeadlines + '$country&apiKey=$apiKey';
   }
 
+  static String topHeadlinesForCategory(String country, String category) {
+    return baseUrl +
+        topHeadlines +
+        '$country' +
+        '&category=$category' +
+        '&apiKey=$apiKey';
+  }
+
   static const Map<String, dynamic> Countries = {
     "Turkey": "tr",
     "United States of America": "us",
     "India": "in",
     "Korea": "kr",
     "China": "ch"
+  };
+
+  static const Map<String, dynamic> Categories = {
+    "General": "general",
+    "Business": "business",
+    "Technology": "technology",
+    "Sports": "sports",
+    "Health": "health",
+    "Entertainment": "entertainment"
   };
 }
