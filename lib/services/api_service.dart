@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_news_app_with_api/constants/api_constants.dart';
+import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/models/news_article.dart';
-import 'package:logger/logger.dart';
 import 'dart:developer' as developer;
 
 class ApiService {
@@ -18,12 +17,12 @@ class ApiService {
       final result = response.data;
       Iterable list = result['articles'];
       //var logger = Logger();
-      /* logger.d(list
+      /* developer.log(list
           .map((article) => NewsArticle.fromJson(article).author)
           .toString());
 
       list.forEach((element) {
-        logger.d(element.toString());
+         developer.log(element.toString());
       }); */
       return list.map((article) => NewsArticle.fromJson(article)).toList();
     } else {

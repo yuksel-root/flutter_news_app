@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_with_api/constants/api_constants.dart';
+import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';

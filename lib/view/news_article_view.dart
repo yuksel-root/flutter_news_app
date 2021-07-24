@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/news_grid.dart';
 import 'package:flutter_news_app_with_api/components/tabbar.dart';
-import 'package:flutter_news_app_with_api/constants/api_constants.dart';
+import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:provider/provider.dart';
 import 'dart:developer' as developer;
@@ -23,12 +23,10 @@ class _NewsViewState extends State<NewsView> {
 
   @override
   Widget build(BuildContext context) {
-    // var logger = Logger();
     var listViewModel = Provider.of<NewsArticleListViewModel>(context);
-    //  logger.d("article_length = " + listViewModel.articles.length.toString());
     //developer.log('article_length' + listViewModel.articles.length.toString());
     /*  listViewModel.articles.forEach((element) {
-      logger.d(element.title);
+      developer.log(element.title);
     }); */
     return Scaffold(
       appBar: AppBar(
