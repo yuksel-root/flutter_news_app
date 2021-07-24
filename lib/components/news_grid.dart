@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_with_api/components/loading_images.dart';
+import 'package:flutter_news_app_with_api/components/circle_images.dart';
 import 'package:flutter_news_app_with_api/view/news_article_details_view.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
 
@@ -7,13 +7,10 @@ class NewsGrid extends StatelessWidget {
   final List<NewsArticleViewModel> articles;
   const NewsGrid({Key? key, required this.articles}) : super(key: key);
 
-  void _showNewsArticleDetails(context, article) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) {
-      return NewsArticleDetailsView(
-        article: article,
-      );
-    }));
-  }
+  void _showNewsArticleDetails(context, article) =>
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return NewsArticleDetailsView(article: article);
+      }));
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +27,9 @@ class NewsGrid extends StatelessWidget {
               child: Container(
                 margin:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                child: LoadingImages(
+                child: CircleImages(
                   imageUrl: article.imageUrl,
+                  imageRadius: 10,
                 ),
               ),
               footer: Container(

@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class LoadingImages extends StatelessWidget {
+class CircleImages extends StatelessWidget {
   final imageUrl;
-  const LoadingImages({Key? key, required this.imageUrl}) : super(key: key);
+  final double imageRadius;
+  const CircleImages(
+      {Key? key, required this.imageUrl, required this.imageRadius})
+      : super(key: key);
 // child:Image.network(listViewModel.articles[index].imageUrl)
   @override
   Widget build(BuildContext context) {
@@ -12,7 +15,7 @@ class LoadingImages extends StatelessWidget {
       imageBuilder: (context, imageProvider) {
         return Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(imageRadius),
             image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
           ),
         );
