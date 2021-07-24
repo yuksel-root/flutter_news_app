@@ -9,28 +9,32 @@ class NewsArticleViewModel {
   }
 
   String get title {
-    return _newsArticle.title;
+    return _newsArticle.title ?? "";
   }
 
   String get description {
-    return _newsArticle.description;
+    return _newsArticle.description ?? "";
   }
 
   String get imageUrl {
-    return _newsArticle.urlToImage;
+    return _newsArticle.urlToImage ?? "";
   }
 
   String get url {
-    return _newsArticle.url;
+    return _newsArticle.url ?? "";
   }
 
   String get author {
-    return _newsArticle.author;
+    return _newsArticle.author ?? "";
+  }
+
+  String get source {
+    return _newsArticle.source ?? "";
   }
 
   String get publishedAt {
     final dateTime = DateFormat('yyyy-MM-ddTHH:mm:ssZ')
-        .parse(_newsArticle.publishedAt, true);
+        .parse(_newsArticle.publishedAt ?? "", true);
     return DateFormat.yMMMMEEEEd('en-us').format(dateTime).toString();
   }
 }
