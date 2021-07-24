@@ -1,5 +1,5 @@
 class ApiConstants {
-  static const String apiKey = 'cafd035f5d764660adf678dfcf14b982';
+  static const String apiKey = 'cafd035f5d764660adf678dfcf14b982'; //2
   static const String baseUrl = 'https://newsapi.org/v2/';
   static const String topHeadlines = 'top-headlines?country=';
 
