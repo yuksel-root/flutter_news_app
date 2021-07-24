@@ -1,30 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_with_api/components/loading_images.dart';
+import 'package:flutter_news_app_with_api/components/circle_images.dart';
+import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
-import 'package:logger/logger.dart';
 
 class NewsArticleDetailsView extends StatelessWidget {
   final NewsArticleViewModel article;
   const NewsArticleDetailsView({Key? key, required this.article})
       : super(key: key);
 
-  void _showlog(String value) {
-    var logger = Logger();
-    logger.d("Logger: " + value);
-  }
-
   @override
   Widget build(BuildContext context) {
-    _showlog(this.article.description);
     return Scaffold(
       appBar: AppBar(
           title: Row(
         children: [
           SizedBox(width: 5),
-          Container(
-            constraints: BoxConstraints(
-              maxWidth: 150,
-            ),
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -36,7 +27,7 @@ class NewsArticleDetailsView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  this.article.author,
+                  this.article.source,
                   style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ],
@@ -44,55 +35,58 @@ class NewsArticleDetailsView extends StatelessWidget {
           )
         ],
       )),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 30, right: 20),
+      body: ListView(children: [
+        SizedBox(
+          height: context.dynamicHeight(0.35),
+          child: CircleImages(
+            imageUrl: this.article.imageUrl,
+            imageRadius: 0,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: context.dynamicWidth(0.025),
+              vertical: context.dynamicHeight(0.025)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                alignment: Alignment.centerLeft,
-                children: [
-                  Divider(
-                    color: Colors.white,
-                    thickness: 20,
-                    height: 20,
-                  ),
-                ],
-              ),
               Text(this.article.title,
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      wordSpacing: 3)),
+                  style: Theme.of(context).textTheme.headline6),
               SizedBox(
-                height: 20,
+                height: context.dynamicHeight(0.025),
               ),
-              Text(
-                this.article.publishedAt,
-                style: TextStyle(fontSize: 16, color: Colors.grey),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 200,
-                child: LoadingImages(
-                  imageUrl: this.article.imageUrl,
+              FittedBox(
+                child: Row(
+                  children: [
+                    SizedBox(width: context.dynamicWidth(0.01)),
+                    Text(
+                      this.article.publishedAt,
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          ?.copyWith(color: Colors.grey),
+                    ),
+                    SizedBox(width: context.dynamicWidth(0.50)),
+                    Text(
+                      this.article.author,
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          ?.copyWith(color: Colors.grey),
+                    ),
+                    SizedBox(width: context.dynamicWidth(0.01)),
+                  ],
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: context.dynamicHeight(0.025),
               ),
               Text(this.article.description,
-                  style: TextStyle(fontSize: 16, wordSpacing: 3)),
-              SizedBox(
-                height: 20,
-              ),
+                  style: Theme.of(context).textTheme.subtitle1),
             ],
           ),
         ),
-      ),
+      ]),
     );
   }
 }
