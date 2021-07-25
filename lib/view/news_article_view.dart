@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/news_grid.dart';
-import 'package:flutter_news_app_with_api/components/tabbar.dart';
+import 'package:flutter_news_app_with_api/view/tabbar_view.dart';
 import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/core/preferences/shared_manager.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
@@ -31,41 +31,13 @@ class _NewsViewState extends State<NewsView> {
       developer.log(element.title);
     }); */
     return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text('News App')),
-        actions: [
-          PopupMenuButton(
-            onSelected: (country) async {
-              final isSavedCountry = await SharedManager.instance
-                  .saveStringValue('Country', country.toString());
-              if (isSavedCountry) {
-                final getCountry =
-                    SharedManager.instance.getStringValue('Country');
-                developer.log(getCountry.toString());
-                listViewModel
-                    .topHeadlinesByCountry(ApiConstants.Countries[getCountry]);
-              }
-            },
-            icon: Icon(Icons.more_vert),
-            itemBuilder: (_) {
-              return ApiConstants.Countries.keys
-                  .map((v) => PopupMenuItem(
-                        value: v,
-                        child: Text(v),
-                      ))
-                  .toList();
-            },
-          )
-        ],
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
-              child: Tabbar(
             child: NewsGrid(articles: listViewModel.articles),
-          )),
+          ),
         ],
       ),
     );

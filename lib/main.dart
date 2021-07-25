@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/core/preferences/shared_manager.dart';
 import 'package:flutter_news_app_with_api/view/news_article_view.dart';
+import 'package:flutter_news_app_with_api/view/tabbar_view.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
             create: (_) => NewsArticleListViewModel(),
           ),
         ],
-        child: NewsView(),
+        child: NewsTabbarView(),
       ),
     );
   }
