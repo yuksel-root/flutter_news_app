@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/news_grid.dart';
 import 'package:flutter_news_app_with_api/components/tabbar.dart';
 import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
+import 'package:flutter_news_app_with_api/core/preferences/shared_manager.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:provider/provider.dart';
 import 'dart:developer' as developer;
@@ -14,6 +15,7 @@ class NewsView extends StatefulWidget {
 }
 
 class _NewsViewState extends State<NewsView> {
+  bool isCached = false;
   @override
   void initState() {
     super.initState();
@@ -33,9 +35,16 @@ class _NewsViewState extends State<NewsView> {
         title: Center(child: Text('News App')),
         actions: [
           PopupMenuButton(
-            onSelected: (country) {
-              listViewModel
-                  .topHeadlinesByCountry(ApiConstants.Countries[country]);
+            onSelected: (country) async {
+              final isSavedCountry = await SharedManager.instance
+                  .saveStringValue('Country', country.toString());
+              if (isSavedCountry) {
+                final getCountry =
+                    SharedManager.instance.getStringValue('Country');
+                developer.log(getCountry.toString());
+                listViewModel
+                    .topHeadlinesByCountry(ApiConstants.Countries[getCountry]);
+              }
             },
             icon: Icon(Icons.more_vert),
             itemBuilder: (_) {
