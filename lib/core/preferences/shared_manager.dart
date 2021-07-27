@@ -17,14 +17,13 @@ class SharedManager {
 
   Future<void> initPreferences() async {
     preferences = await SharedPreferences.getInstance();
-    preferences.clear();
   }
 
-  Future<bool> saveStringValue(String key, String value) async {
-    return await preferences.setString(key, value);
+  Future<void> saveStringValue(String key, String value) async {
+    await preferences.setString(key, value);
   }
 
-  String? getStringValue(String key) {
-    return preferences.getString(key.toString()) ?? 'null data';
+  String getStringValue(String key) {
+    return preferences.getString(key) ?? 'Null';
   }
 }
