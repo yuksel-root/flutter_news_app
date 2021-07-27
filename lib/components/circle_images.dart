@@ -23,6 +23,8 @@ class CircleImages extends StatelessWidget {
       placeholder: (context, url) => Center(
         child: CircularProgressIndicator(),
       ),
+      fadeInDuration: Duration(milliseconds: 0),
+      fadeOutDuration: Duration(milliseconds: 0),
       errorWidget: (context, url, error) => Icon(Icons.error),
     );
   }
