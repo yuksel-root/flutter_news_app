@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
-import 'package:flutter_news_app_with_api/core/preferences/shared_manager.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
-import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'dart:developer' as developer;
 
@@ -18,15 +16,16 @@ class NewsTabbarView extends StatefulWidget {
 class _NewsTabbarViewState extends State<NewsTabbarView>
     with TickerProviderStateMixin {
   late TabController tabController;
-  var logger = Logger();
-
+  var getCountry;
   @override
   void initState() {
     super.initState();
+    getCountry = Provider.of<NewsArticleListViewModel>(context, listen: false)
+        .getCountry;
     tabController =
         TabController(length: ApiConstants.Categories.length, vsync: this);
     Provider.of<NewsArticleListViewModel>(context, listen: false)
-        .topHeadlines();
+        .topHeadlinesByCountry(ApiConstants.Countries[getCountry]);
   }
 
   @override
@@ -37,16 +36,18 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
 
   @override
   Widget build(BuildContext context) {
-    var listViewModel = Provider.of<NewsArticleListViewModel>(context);
+    final listViewModel =
+        Provider.of<NewsArticleListViewModel>(context, listen: false);
     return DefaultTabController(
       length: ApiConstants.Categories.length,
       child: Builder(builder: (BuildContext context) {
         final TabController tabController = DefaultTabController.of(context)!;
         tabController.addListener(() {
           if (!tabController.indexIsChanging) {
-            listViewModel.topHeadlinesCategory("tr",
+            developer.log("tab" + listViewModel.getCountry);
+            listViewModel.topHeadlinesCategory(
+                ApiConstants.Countries[listViewModel.getCountry],
                 ApiConstants.Categories.keys.toList()[tabController.index]);
-            //developer.log("length" + listViewModel.articles.length.toString());
           }
         });
         return Scaffold(
@@ -63,15 +64,11 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
             actions: [
               PopupMenuButton(
                 onSelected: (country) async {
-                  final isSavedCountry = await SharedManager.instance
-                      .saveStringValue('Country', country.toString());
-                  if (isSavedCountry) {
-                    final getCountry =
-                        SharedManager.instance.getStringValue('Country');
-                    developer.log(getCountry.toString());
-                    listViewModel.topHeadlinesByCountry(
-                        ApiConstants.Countries[getCountry]);
-                  }
+                  listViewModel.setCountry = country.toString();
+                  listViewModel.topHeadlinesByCountry(ApiConstants.Countries[
+                      Provider.of<NewsArticleListViewModel>(context,
+                              listen: false)
+                          .getCountry]);
                 },
                 icon: Icon(Icons.more_vert),
                 itemBuilder: (_) {
