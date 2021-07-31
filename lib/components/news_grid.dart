@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/circle_images.dart';
+import 'package:flutter_news_app_with_api/core/constants/navigation_constants.dart';
+import 'package:flutter_news_app_with_api/core/navigation/navigation_service.dart';
 import 'package:flutter_news_app_with_api/view/news_article_details_view.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
 
 class NewsGrid extends StatelessWidget {
+  final NavigationService navigation = NavigationService.instance;
   final List<NewsArticleViewModel> articles;
-  const NewsGrid({Key? key, required this.articles}) : super(key: key);
+  
+   NewsGrid({Key? key, required this.articles}) : super(key: key);
 
-  void _showNewsArticleDetails(context, article) =>
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return NewsArticleDetailsView(article: article);
-      }));
+  void _showNewsArticleDetails(context, article)  =>  navigation.navigateToPage(path: NavigationConstants.NEWS_DETAILS_WIEW,data:article);
+  /*  Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return NewsDetailsView(article: article);
+      })); */
 
   @override
   Widget build(BuildContext context) {

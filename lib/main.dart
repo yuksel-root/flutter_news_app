@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app_with_api/core/navigation/navigation_route.dart';
+import 'package:flutter_news_app_with_api/core/navigation/navigation_service.dart';
 import 'package:flutter_news_app_with_api/core/preferences/shared_manager.dart';
 import 'package:flutter_news_app_with_api/view/news_article_view.dart';
 import 'package:flutter_news_app_with_api/view/tabbar_view.dart';
@@ -24,11 +26,14 @@ class MyApp extends StatelessWidget {
               elevation: 0,
               actionsIconTheme: IconThemeData(color: Colors.white)),
           textTheme: TextTheme(headline6: TextStyle(color: Colors.black))),
+      onGenerateRoute: NavigationRoute.instance.generateRoute,
+      navigatorKey: NavigationService.instance.navigatorKey,
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider(
             create: (_) => NewsArticleListViewModel(),
           ),
+          Provider.value(value: NavigationService.instance)
         ],
         child: NewsTabbarView(),
       ),

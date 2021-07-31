@@ -3,10 +3,9 @@ import 'package:flutter_news_app_with_api/components/circle_images.dart';
 import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
 
-class NewsArticleDetailsView extends StatelessWidget {
-  final NewsArticleViewModel article;
-  const NewsArticleDetailsView({Key? key, required this.article})
-      : super(key: key);
+class NewsDetailsView extends StatelessWidget {
+  final NewsArticleViewModel? article;
+  const NewsDetailsView({Key? key, required this.article}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class NewsArticleDetailsView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  this.article.source,
+                  this.article!.source,
                   style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ],
@@ -39,7 +38,7 @@ class NewsArticleDetailsView extends StatelessWidget {
         SizedBox(
           height: context.dynamicHeight(0.35),
           child: CircleImages(
-            imageUrl: this.article.imageUrl,
+            imageUrl: this.article!.imageUrl,
             imageRadius: 0,
           ),
         ),
@@ -50,7 +49,7 @@ class NewsArticleDetailsView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(this.article.title,
+              Text(this.article!.title,
                   style: Theme.of(context).textTheme.headline6),
               SizedBox(
                 height: context.dynamicHeight(0.025),
@@ -60,7 +59,7 @@ class NewsArticleDetailsView extends StatelessWidget {
                   children: [
                     SizedBox(width: context.dynamicWidth(0.01)),
                     Text(
-                      this.article.publishedAt,
+                      this.article!.publishedAt,
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1
@@ -68,7 +67,7 @@ class NewsArticleDetailsView extends StatelessWidget {
                     ),
                     SizedBox(width: context.dynamicWidth(0.50)),
                     Text(
-                      this.article.author,
+                      this.article!.author,
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1
@@ -81,7 +80,7 @@ class NewsArticleDetailsView extends StatelessWidget {
               SizedBox(
                 height: context.dynamicHeight(0.025),
               ),
-              Text(this.article.description,
+              Text(this.article!.description,
                   style: Theme.of(context).textTheme.subtitle1),
             ],
           ),
