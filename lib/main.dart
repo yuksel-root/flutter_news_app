@@ -8,6 +8,8 @@ import 'package:flutter_news_app_with_api/view/tabbar_view.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:provider/provider.dart';
 
+import 'view_models/bottom_navigation_view_model.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedManager.instance.initPreferences();
@@ -15,6 +17,9 @@ Future<void> main() async {
     MultiProvider(providers: [
       ChangeNotifierProvider(
         create: (_) => NewsArticleListViewModel(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => BottomNavigationProvider(),
       ),
       Provider.value(value: NavigationService.instance)
     ], child: MyApp()),

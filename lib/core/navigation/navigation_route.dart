@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/core/constants/navigation_constants.dart';
+import 'package:flutter_news_app_with_api/view/bottom_tabbar_view.dart';
 import 'package:flutter_news_app_with_api/view/news_article_details_view.dart';
 import 'package:flutter_news_app_with_api/view/tabbar_view.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
@@ -15,8 +16,8 @@ class NavigationRoute {
 
     switch (settings?.name) {
       case NavigationConstants.HOME_VIEW:
-        print("newsTabbarView");
-        return pageNavigate(NewsTabbarView());
+        print("BotomTabbarView");
+        return pageNavigate(BottomTabbarView());
       case NavigationConstants.NEWS_DETAILS_WIEW:
         print("newsDetailView");
         if (settings?.arguments is NewsArticleViewModel) {
