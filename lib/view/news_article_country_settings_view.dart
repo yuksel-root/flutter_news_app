@@ -16,8 +16,6 @@ class NewsCountrySettings extends StatelessWidget {
       ImageConstants.FLAGS.length,
       (index) => ListTile(
         leading: Container(
-            padding: EdgeInsets.all(0.001),
-            margin: EdgeInsets.all(0.001),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(
                     context.dynamicWidth(0.065) < 50
@@ -43,7 +41,7 @@ class NewsCountrySettings extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .subtitle1
-              ?.copyWith(color: Colors.grey),
+              ?.copyWith(color: Colors.white),
         ),
       ),
     );

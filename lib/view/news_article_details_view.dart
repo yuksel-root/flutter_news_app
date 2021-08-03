@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/circle_images.dart';
+import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
+import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
+import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_navigation_notifier.dart';
+import 'package:provider/provider.dart';
+import 'dart:async';
 
 class NewsDetailsView extends StatelessWidget {
   final NewsArticleViewModel? article;
@@ -9,25 +14,50 @@ class NewsDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(article!.url);
+    Future<void>? _launched;
+    final tabbarNavProv = Provider.of<TabbarNavigationProvider>(context);
+    final newsListViewModel =
+        Provider.of<NewsArticleListViewModel>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
           title: Row(
         children: [
-          SizedBox(width: 5),
-          Expanded(
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  'Source',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12,
+                InkWell(
+                  onTap: () => _launched =
+                      newsListViewModel.launchInBrowser(article!.url),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xffbdc3c7).withOpacity(0.75),
+                          blurRadius: 2.5,
+                          spreadRadius: 5,
+                          offset: Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: context.dynamicWidth(0.01), vertical: 0),
+                      child: Text('Go to Article',
+                          style: TextStyle(
+                              fontSize: context.dynamicHeight(0.025),
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.1,
+                              color: Colors.white),
+                          maxLines: 1,
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.ellipsis),
+                    ),
                   ),
-                ),
-                Text(
-                  this.article!.source,
-                  style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ],
             ),
@@ -51,6 +81,69 @@ class NewsDetailsView extends StatelessWidget {
             children: [
               Text(this.article!.title,
                   style: Theme.of(context).textTheme.headline6),
+              SizedBox(
+                height: context.dynamicHeight(0.025),
+              ),
+              FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [Color(0xffbdc3c7), Color(0xccbdc3c7)],
+                            tileMode: TileMode.clamp),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: context.dynamicWidth(0.01),
+                            vertical: 0),
+                        child: Text(
+                            ApiConstants.Categories.keys
+                                .toList()[tabbarNavProv.currentIndex],
+                            style: TextStyle(
+                                fontSize: context.dynamicHeight(0.025),
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0.1,
+                                color: Colors.white),
+                            maxLines: 1,
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.ellipsis),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [Color(0xff2c3e50), Color(0xcc2c3e50)],
+                            tileMode: TileMode.clamp),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: context.dynamicWidth(0.01),
+                          vertical: context.dynamicHeight(0.0001),
+                        ),
+                        child: Text(
+                            article!.source.contains(".")
+                                ? article!.source.split(".").elementAt(0)
+                                : article!.source,
+                            style: TextStyle(
+                                fontSize: context.dynamicHeight(0.025),
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0.1,
+                                color: Colors.white),
+                            maxLines: 1,
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.ellipsis),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(
                 height: context.dynamicHeight(0.025),
               ),

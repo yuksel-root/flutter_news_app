@@ -37,6 +37,8 @@ dependencies:
   fluttericon: ^2.0.0
   shared_preferences: ^2.0.6
   font_awesome_flutter: ^9.1.0
+  dev: ^0.0.2
+  url_launcher: ^6.0.9
 dev_dependencies:
   flutter_test:
     sdk: flutter
