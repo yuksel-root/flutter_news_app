@@ -3,10 +3,9 @@ import 'package:flutter_news_app_with_api/core/constants/navigation_constants.da
 import 'package:flutter_news_app_with_api/core/navigation/navigation_route.dart';
 import 'package:flutter_news_app_with_api/core/navigation/navigation_service.dart';
 import 'package:flutter_news_app_with_api/core/preferences/shared_manager.dart';
-import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
-import 'view_models/bottom_navigation_view_model.dart';
+import 'core/navigation/notifier/provider_list.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,15 +14,9 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
   ]);
   runApp(
-    MultiProvider(providers: [
-      ChangeNotifierProvider(
-        create: (_) => NewsArticleListViewModel(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => BottomNavigationProvider(),
-      ),
-      Provider.value(value: NavigationService.instance)
-    ], child: MyApp()),
+    MultiProvider(
+        providers: [...ApplicationProvider.instance.dependItems],
+        child: MyApp()),
   );
 }
 
