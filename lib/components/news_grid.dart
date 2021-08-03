@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/circle_images.dart';
+import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/core/constants/navigation_constants.dart';
 import 'package:flutter_news_app_with_api/core/navigation/navigation_service.dart';
+import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_navigation_notifier.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
+import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
 
-//TODO add article.category
-//TODO add dynamic padding size
+import 'package:provider/provider.dart';
 
 class NewsGrid extends StatelessWidget {
   final NavigationService navigation = NavigationService.instance;
@@ -18,9 +20,12 @@ class NewsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tabbarNavProv = Provider.of<TabbarNavigationProvider>(context);
+    print(context.dynamicHeight(1));
+    print(context.dynamicWidth(1));
     return GridView.builder(
       gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
       itemBuilder: (context, index) {
         final article = articles[index];
         return GestureDetector(
@@ -29,7 +34,9 @@ class NewsGrid extends StatelessWidget {
           },
           child: GridTile(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: EdgeInsets.symmetric(
+                  horizontal: context.dynamicWidth(0.0277),
+                  vertical: context.dynamicHeight(0.001)),
               child: Stack(children: [
                 CircleImages(
                   imageUrl: article.imageUrl,
@@ -37,37 +44,47 @@ class NewsGrid extends StatelessWidget {
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                    colors: [
-                                      Color(0xffbdc3c7),
-                                      Color(0xccbdc3c7)
-                                    ],
-                                    tileMode: TileMode.clamp)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 0),
-                              child: Text("Teknoloji",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2
-                                      ?.copyWith(color: Colors.white),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: context.dynamicWidth(0.0277),
+                        vertical: context.dynamicHeight(0.0080),
+                      ),
+                      child: FittedBox(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        Color(0xffbdc3c7),
+                                        Color(0xccbdc3c7)
+                                      ],
+                                      tileMode: TileMode.clamp)),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: context.dynamicWidth(0.01),
+                                    vertical: 0),
+                                child: Text(
+                                    ApiConstants.Categories.keys
+                                        .toList()[tabbarNavProv.currentIndex],
+                                    style: TextStyle(
+                                        fontSize: context.dynamicHeight(0.025),
+                                        fontWeight: FontWeight.w500,
+                                        letterSpacing: 0.1,
+                                        color: Colors.white),
+                                    maxLines: 1,
+                                    textAlign: TextAlign.start,
+                                    overflow: TextOverflow.ellipsis),
+                              ),
                             ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
+                            Container(
+                              decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                     begin: Alignment.centerLeft,
                                     end: Alignment.centerRight,
@@ -75,32 +92,54 @@ class NewsGrid extends StatelessWidget {
                                       Color(0xff2c3e50),
                                       Color(0xcc2c3e50)
                                     ],
-                                    tileMode: TileMode.clamp)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 0),
-                              child: Text(article.source,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2
-                                      ?.copyWith(color: Colors.white),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis),
+                                    tileMode: TileMode.clamp),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: context.dynamicWidth(0.01),
+                                  vertical: context.dynamicHeight(0.0001),
+                                ),
+                                child: Text(
+                                    article.source.contains(".")
+                                        ? article.source.split(".").elementAt(0)
+                                        : article.source,
+                                    style: TextStyle(
+                                        fontSize: context.dynamicHeight(0.025),
+                                        fontWeight: FontWeight.w500,
+                                        letterSpacing: 0.1,
+                                        color: Colors.white),
+                                    maxLines: 1,
+                                    textAlign: TextAlign.start,
+                                    overflow: TextOverflow.ellipsis),
+                              ),
                             ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x40000080).withOpacity(0.15),
+                            blurRadius: 0.01,
+                            offset: Offset(0, 0),
                           ),
                         ],
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      child: Text(article.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1
-                              ?.copyWith(color: Colors.white),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: context.dynamicWidth(0.0277),
+                            vertical: context.dynamicHeight(0.0253)),
+                        child: Text(article.title,
+                            style: TextStyle(
+                                fontSize: context.dynamicHeight(0.025),
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: 0.1,
+                                color: Colors.white),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis),
+                      ),
                     ),
                   ],
                 ),
