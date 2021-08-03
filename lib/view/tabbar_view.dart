@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
+import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_navigation_notifier.dart';
 import 'package:provider/provider.dart';
 import 'dart:developer' as developer;
 
@@ -26,6 +27,7 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
         TabController(length: ApiConstants.Categories.length, vsync: this);
     Provider.of<NewsArticleListViewModel>(context, listen: false)
         .topHeadlinesByCountry(ApiConstants.Countries[getCountry]);
+    Provider.of<TabbarNavigationProvider>(context, listen: false);
   }
 
   @override
@@ -36,6 +38,7 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
 
   @override
   Widget build(BuildContext context) {
+    final tabbarNavProv = Provider.of<TabbarNavigationProvider>(context);
     final listViewModel =
         Provider.of<NewsArticleListViewModel>(context, listen: false);
     return DefaultTabController(
@@ -48,6 +51,7 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
             listViewModel.topHeadlinesCategory(
                 ApiConstants.Countries[listViewModel.getCountry],
                 ApiConstants.Categories.keys.toList()[tabController.index]);
+            tabbarNavProv.currentIndex = tabController.index;
           }
         });
         return Scaffold(
