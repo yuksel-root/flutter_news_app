@@ -15,14 +15,22 @@ class CircleImages extends StatelessWidget {
       imageBuilder: (context, imageProvider) {
         return Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(imageRadius),
             image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
           ),
         );
       },
       placeholder: (context, url) => Center(
-        child: CircularProgressIndicator(),
-      ),
+          child: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Color(0x40000080).withOpacity(0.15),
+              blurRadius: 0.01,
+              offset: Offset(0, 0), // Shadow position
+            ),
+          ],
+        ),
+      )),
       fadeInDuration: Duration(milliseconds: 0),
       fadeOutDuration: Duration(milliseconds: 0),
       errorWidget: (context, url, error) => Icon(Icons.error),
