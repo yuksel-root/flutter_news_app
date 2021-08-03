@@ -54,6 +54,7 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
           appBar: AppBar(
             title: Center(child: Text('News App')),
             bottom: TabBar(
+              indicatorColor: Colors.greenAccent,
               isScrollable: true,
               tabs: ApiConstants.Categories.keys
                   .map(
