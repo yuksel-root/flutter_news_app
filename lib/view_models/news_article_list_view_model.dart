@@ -5,6 +5,8 @@ import 'package:flutter_news_app_with_api/services/api_service.dart';
 import 'dart:developer' as developer;
 import 'news_article_view_model.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 enum ArticleState {
   completed,
   searching,
@@ -40,6 +42,14 @@ class NewsArticleListViewModel with ChangeNotifier {
 
     _currentPrefs = PrefsState(country: country);
     notifyListeners();
+  }
+
+  Future<void> launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Future<void> _saveCountryPref() async {
