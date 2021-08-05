@@ -15,7 +15,7 @@ class BottomTabbarView extends StatefulWidget {
 class _BottomTabbarViewState extends State<BottomTabbarView> {
   static List<Widget> currentScreen = [
     NewsTabbarView(),
-    NewsCountrySettings(),
+    NewsCountrySettingsView(),
   ];
   @override
   Widget build(BuildContext context) {

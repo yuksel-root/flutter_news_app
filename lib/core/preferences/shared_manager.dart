@@ -26,4 +26,12 @@ class SharedManager {
   String getStringValue(String key) {
     return preferences.getString(key) ?? 'Null';
   }
+
+  Future<void> saveIntValue(String key, int? value) async {
+    await preferences.setInt(key, value!);
+  }
+
+  int? getIntValue(String key) {
+    return preferences.getInt(key) ?? null;
+  }
 }
