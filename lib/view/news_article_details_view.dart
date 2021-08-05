@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/circle_images.dart';
 import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
+import 'package:flutter_news_app_with_api/core/constants/categories_constants.dart';
 import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
@@ -14,7 +15,6 @@ class NewsDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(article!.url);
     Future<void>? _launched;
     final tabbarNavProv = Provider.of<TabbarNavigationProvider>(context);
     final newsListViewModel =
@@ -102,8 +102,9 @@ class NewsDetailsView extends StatelessWidget {
                             horizontal: context.dynamicWidth(0.01),
                             vertical: 0),
                         child: Text(
-                            ApiConstants.Categories.keys
-                                .toList()[tabbarNavProv.currentIndex],
+                            CategoriesConstants
+                                    .listCategory[tabbarNavProv.currentIndex]
+                                ['categoryName'],
                             style: TextStyle(
                                 fontSize: context.dynamicHeight(0.025),
                                 fontWeight: FontWeight.w500,

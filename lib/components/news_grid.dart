@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/circle_images.dart';
-import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
+import 'package:flutter_news_app_with_api/core/constants/categories_constants.dart';
 import 'package:flutter_news_app_with_api/core/constants/navigation_constants.dart';
 import 'package:flutter_news_app_with_api/core/navigation/navigation_service.dart';
 import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_navigation_notifier.dart';
@@ -21,11 +21,9 @@ class NewsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tabbarNavProv = Provider.of<TabbarNavigationProvider>(context);
-    print(context.dynamicHeight(1));
-    print(context.dynamicWidth(1));
     return GridView.builder(
-      gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1, childAspectRatio: 2, mainAxisSpacing: 5),
       itemBuilder: (context, index) {
         final article = articles[index];
         return GestureDetector(
@@ -71,8 +69,9 @@ class NewsGrid extends StatelessWidget {
                                     horizontal: context.dynamicWidth(0.01),
                                     vertical: 0),
                                 child: Text(
-                                    ApiConstants.Categories.keys
-                                        .toList()[tabbarNavProv.currentIndex],
+                                    CategoriesConstants.listCategory[
+                                            tabbarNavProv.currentIndex]
+                                        ['categoryName'],
                                     style: TextStyle(
                                         fontSize: context.dynamicHeight(0.025),
                                         fontWeight: FontWeight.w500,

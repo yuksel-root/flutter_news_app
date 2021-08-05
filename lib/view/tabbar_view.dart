@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
+import 'package:flutter_news_app_with_api/core/constants/categories_constants.dart';
+import 'package:flutter_news_app_with_api/core/constants/country_constants.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_navigation_notifier.dart';
+import 'package:flutter_news_app_with_api/view_models/news_country_settings_view_model.dart';
 import 'package:provider/provider.dart';
-import 'dart:developer' as developer;
-
 import 'news_article_view.dart';
 
 class NewsTabbarView extends StatefulWidget {
@@ -17,16 +17,18 @@ class NewsTabbarView extends StatefulWidget {
 class _NewsTabbarViewState extends State<NewsTabbarView>
     with TickerProviderStateMixin {
   late TabController tabController;
-  var getCountry;
+  var getCountryIndex;
   @override
   void initState() {
     super.initState();
-    getCountry = Provider.of<NewsArticleListViewModel>(context, listen: false)
-        .getCountry;
-    tabController =
-        TabController(length: ApiConstants.Categories.length, vsync: this);
+    getCountryIndex =
+        Provider.of<NewsCountrySettingsViewModel>(context, listen: false)
+            .getCountryIndex;
+    tabController = TabController(
+        length: CategoriesConstants.listCategory.length, vsync: this);
     Provider.of<NewsArticleListViewModel>(context, listen: false)
-        .topHeadlinesByCountry(ApiConstants.Countries[getCountry]);
+        .topHeadlinesByCountry(
+            CountryConstants.listCountry[getCountryIndex]['countryCode']);
     Provider.of<TabbarNavigationProvider>(context, listen: false);
   }
 
@@ -41,16 +43,21 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
     final tabbarNavProv = Provider.of<TabbarNavigationProvider>(context);
     final listViewModel =
         Provider.of<NewsArticleListViewModel>(context, listen: false);
+    final countrySettingsModel =
+        Provider.of<NewsCountrySettingsViewModel>(context, listen: false);
+    //developer.log("tab" + countrySettingsModel.getCountryIndex.toString());
     return DefaultTabController(
-      length: ApiConstants.Categories.length,
+      length: CategoriesConstants.listCategory.length,
       child: Builder(builder: (BuildContext context) {
         final TabController tabController = DefaultTabController.of(context)!;
         tabController.addListener(() {
           if (!tabController.indexIsChanging) {
-            developer.log("tab" + listViewModel.getCountry);
             listViewModel.topHeadlinesCategory(
-                ApiConstants.Countries[listViewModel.getCountry],
-                ApiConstants.Categories.keys.toList()[tabController.index]);
+                CountryConstants
+                        .listCountry[countrySettingsModel.getCountryIndex]
+                    ['countryCode'],
+                CategoriesConstants.listCategory[tabController.index]
+                    ['categoryCode']);
             tabbarNavProv.currentIndex = tabController.index;
           }
         });
@@ -60,36 +67,16 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
             bottom: TabBar(
               indicatorColor: Colors.greenAccent,
               isScrollable: true,
-              tabs: ApiConstants.Categories.keys
+              tabs: CategoriesConstants.listCategory
                   .map(
-                    (e) => Tab(text: e),
+                    (e) => Tab(text: e['categoryName']),
                   )
                   .toList(),
             ),
-            actions: [
-              PopupMenuButton(
-                onSelected: (country) async {
-                  listViewModel.setCountry = country.toString();
-                  listViewModel.topHeadlinesByCountry(ApiConstants.Countries[
-                      Provider.of<NewsArticleListViewModel>(context,
-                              listen: false)
-                          .getCountry]);
-                },
-                icon: Icon(Icons.more_vert),
-                itemBuilder: (_) {
-                  return ApiConstants.Countries.keys
-                      .map((v) => PopupMenuItem(
-                            value: v,
-                            child: Text(v),
-                          ))
-                      .toList();
-                },
-              )
-            ],
           ),
           body: TabBarView(
             children: List<Widget>.generate(
-                ApiConstants.Categories.length, (index) => NewsView()),
+                CategoriesConstants.listCategory.length, (index) => NewsView()),
           ),
         );
       }),
