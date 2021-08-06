@@ -1,10 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app_with_api/core/constants/app_constants.dart';
 import 'package:flutter_news_app_with_api/core/constants/navigation_constants.dart';
 import 'package:flutter_news_app_with_api/core/navigation/navigation_route.dart';
 import 'package:flutter_news_app_with_api/core/navigation/navigation_service.dart';
 import 'package:flutter_news_app_with_api/core/preferences/shared_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
+import 'core/language/language_manager.dart';
 import 'core/navigation/notifier/provider_list.dart';
 
 Future<void> main() async {
@@ -16,7 +19,12 @@ Future<void> main() async {
   runApp(
     MultiProvider(
         providers: [...ApplicationProvider.instance.dependItems],
-        child: MyApp()),
+        child: EasyLocalization(
+          child: MyApp(),
+          supportedLocales: LanguageManager.instance.supportedLocales,
+          path: AppConstants.LANG_ASSET_PATH,
+          startLocale: LanguageManager.instance.trLocale,
+        )),
   );
 }
 
