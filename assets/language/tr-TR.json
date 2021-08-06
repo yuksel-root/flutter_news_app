@@ -1,0 +1,33 @@
+{
+    "categories": {
+        "tab1": "Genel",
+        "tab2": "İş",
+        "tab3": "Teknoloji",
+        "tab4": "Spor",
+        "tab5": "Sağlık",
+        "tab6": "Eğlence"
+    },
+
+    "countries": {
+        "country1": "Türkiye",
+        "country2": "Amerika Birleşik Devletleri",
+        "country3": "Almanya",
+        "country4": "Rusya",
+        "country5": "Fransa",
+        "country6": "İtalya",
+        "country7": "Arjantin",
+        "country8": "Avustralya",
+        "country9": "Hindistan",
+        "country10": "Kore",
+        "country11": "Çin"
+    },
+    
+    "bottomNav": {
+        "tab1": "Anasayfa",
+        "tab2": "Ülke Ayarları"   
+    },
+    "newsDetails": {
+        "goArticleButton": "Makaleye Git"  
+    }
+
+}

@@ -1,0 +1,33 @@
+{
+    "categories": {
+        "tab1": "General",
+        "tab2": "Business",
+        "tab3": "Technology",
+        "tab4": "Sports",
+        "tab5": "Health",
+        "tab6": "Entertainment"
+    },
+
+    "countries": {
+        "country1": "Turkey",
+        "country2": "United States of America",
+        "country3": "Germany",
+        "country4": "Russia",
+        "country5": "France",
+        "country6": "Italy",
+        "country7": "Argentina",
+        "country8": "Australia",
+        "country9": "India",
+        "country10": "Korea",
+        "country11": "China"
+    },
+    
+    "bottomNav": {
+        "tab1": "Home",
+        "tab2": "Country Settings"   
+    },
+    "newsDetails": {
+        "goArticleButton": "Go to Article"  
+    }
+
+}
