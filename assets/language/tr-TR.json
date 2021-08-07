@@ -26,8 +26,15 @@
         "tab1": "Anasayfa",
         "tab2": "Ülke Ayarları"   
     },
+
     "newsDetails": {
         "goArticleButton": "Makaleye Git"  
+    },
+
+    "newsCountrySettings":{
+        "title":"Ülke Seçiniz"
     }
 
+
+    
 }

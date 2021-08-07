@@ -26,8 +26,14 @@
         "tab1": "Home",
         "tab2": "Country Settings"   
     },
+
     "newsDetails": {
         "goArticleButton": "Go to Article"  
+    },
+
+    "newsCountrySettings":{
+        "title":"Select Country"
     }
+
 
 }
