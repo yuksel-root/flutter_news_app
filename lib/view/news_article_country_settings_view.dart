@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/core/constants/country_constants.dart';
 import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
+import 'package:flutter_news_app_with_api/core/language/locale_keys.g.dart';
 import 'dart:developer' as developer;
 import 'package:flutter_news_app_with_api/view_models/news_country_settings_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_news_app_with_api/core/extension/string_extension.dart';
 
 class NewsCountrySettingsView extends StatelessWidget {
   NewsCountrySettingsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final title = 'Select Country';
+    final title = LocaleKeys.newsCountrySettings_title;
 
     final countryModel =
         Provider.of<NewsCountrySettingsViewModel>(context, listen: false);
@@ -45,7 +47,7 @@ class NewsCountrySettingsView extends StatelessWidget {
                   fit: BoxFit.cover),
             )),
         title: Text(
-          CountryConstants.listCountry[index]['countryName'],
+          CountryConstants.listCountry[index]['countryName'].toString().locale,
           style: Theme.of(context)
               .textTheme
               .subtitle1
@@ -60,12 +62,12 @@ class NewsCountrySettingsView extends StatelessWidget {
           headline6: TextStyle(color: Colors.greenAccent),
         ),
       ),
-      title: title,
+      title: title.toString().locale,
       home: Scaffold(
         backgroundColor: Color(0xe61c0f45),
         appBar: AppBar(
           backgroundColor: Color(0xff1c0f45),
-          title: Center(child: Text(title)),
+          title: Center(child: Text(title.toString().locale)),
         ),
         body: ListView.separated(
             padding: const EdgeInsets.all(0),

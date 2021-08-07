@@ -6,7 +6,7 @@ import 'package:flutter_news_app_with_api/core/navigation/navigation_service.dar
 import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_navigation_notifier.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
 import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
-
+import 'package:flutter_news_app_with_api/core/extension/string_extension.dart';
 import 'package:provider/provider.dart';
 
 class NewsGrid extends StatelessWidget {
@@ -71,7 +71,9 @@ class NewsGrid extends StatelessWidget {
                                 child: Text(
                                     CategoriesConstants.listCategory[
                                             tabbarNavProv.currentIndex]
-                                        ['categoryName'],
+                                            ['categoryName']
+                                        .toString()
+                                        .locale,
                                     style: TextStyle(
                                         fontSize: context.dynamicHeight(0.025),
                                         fontWeight: FontWeight.w500,

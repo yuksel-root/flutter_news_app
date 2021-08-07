@@ -1,27 +1,29 @@
+import 'package:flutter_news_app_with_api/core/language/locale_keys.g.dart';
+
 class CategoriesConstants {
-  static const List<dynamic> listCategory = <dynamic>[
+  static List<dynamic> listCategory = <dynamic>[
     {
-      'categoryName': 'General',
+      'categoryName': LocaleKeys.categories_tab1,
       'categoryCode': 'general',
     },
     {
-      'categoryName': 'Business',
+      'categoryName': LocaleKeys.categories_tab2,
       'categoryCode': 'business',
     },
     {
-      'categoryName': 'Technology',
+      'categoryName': LocaleKeys.categories_tab3,
       'categoryCode': 'technology',
     },
     {
-      'categoryName': 'Sports',
+      'categoryName': LocaleKeys.categories_tab4,
       'categoryCode': 'sports',
     },
     {
-      'categoryName': 'Health',
+      'categoryName': LocaleKeys.categories_tab5,
       'categoryCode': 'health',
     },
     {
-      'categoryName': 'Entertainment',
+      'categoryName': LocaleKeys.categories_tab6,
       'categoryCode': 'entertainment',
     },
   ];

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/circle_images.dart';
-import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/core/constants/categories_constants.dart';
 import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
@@ -8,6 +7,8 @@ import 'package:flutter_news_app_with_api/view_models/news_article_view_model.da
 import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_navigation_notifier.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
+import 'package:flutter_news_app_with_api/core/extension/string_extension.dart';
+import 'package:flutter_news_app_with_api/core/language/locale_keys.g.dart';
 
 class NewsDetailsView extends StatelessWidget {
   final NewsArticleViewModel? article;
@@ -47,7 +48,7 @@ class NewsDetailsView extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: context.dynamicWidth(0.01), vertical: 0),
-                      child: Text('Go to Article',
+                      child: Text(LocaleKeys.newsDetails_goArticleButton.locale,
                           style: TextStyle(
                               fontSize: context.dynamicHeight(0.025),
                               fontWeight: FontWeight.w500,
@@ -103,8 +104,10 @@ class NewsDetailsView extends StatelessWidget {
                             vertical: 0),
                         child: Text(
                             CategoriesConstants
-                                    .listCategory[tabbarNavProv.currentIndex]
-                                ['categoryName'],
+                                .listCategory[tabbarNavProv.currentIndex]
+                                    ['categoryName']
+                                .toString()
+                                .locale,
                             style: TextStyle(
                                 fontSize: context.dynamicHeight(0.025),
                                 fontWeight: FontWeight.w500,

@@ -6,6 +6,7 @@ import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_naviga
 import 'package:flutter_news_app_with_api/view_models/news_country_settings_view_model.dart';
 import 'package:provider/provider.dart';
 import 'news_article_view.dart';
+import 'package:flutter_news_app_with_api/core/extension/string_extension.dart';
 
 class NewsTabbarView extends StatefulWidget {
   NewsTabbarView({Key? key}) : super(key: key);
@@ -48,6 +49,7 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
     //developer.log("tab" + countrySettingsModel.getCountryIndex.toString());
     return DefaultTabController(
       length: CategoriesConstants.listCategory.length,
+      initialIndex: tabbarNavProv.currentIndex,
       child: Builder(builder: (BuildContext context) {
         final TabController tabController = DefaultTabController.of(context)!;
         tabController.addListener(() {
@@ -69,7 +71,7 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
               isScrollable: true,
               tabs: CategoriesConstants.listCategory
                   .map(
-                    (e) => Tab(text: e['categoryName']),
+                    (e) => Tab(text: e['categoryName'].toString().locale),
                   )
                   .toList(),
             ),

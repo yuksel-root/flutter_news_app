@@ -4,6 +4,8 @@ import 'package:flutter_news_app_with_api/core/navigation/notifier/bottom_naviga
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'news_article_country_settings_view.dart';
+import 'package:flutter_news_app_with_api/core/extension/string_extension.dart';
+import 'package:flutter_news_app_with_api/core/language/locale_keys.g.dart';
 
 class BottomTabbarView extends StatefulWidget {
   const BottomTabbarView({Key? key}) : super(key: key);
@@ -20,6 +22,7 @@ class _BottomTabbarViewState extends State<BottomTabbarView> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<BottomNavigationProvider>(context);
+
     return Scaffold(
       body: currentScreen[provider.currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -35,12 +38,11 @@ class _BottomTabbarViewState extends State<BottomTabbarView> {
             icon: new Icon(
               FontAwesomeIcons.home,
             ),
-            label: 'Home',
+            label: LocaleKeys.bottomNav_tab1.locale,
           ),
           BottomNavigationBarItem(
-            icon: new Icon(FontAwesomeIcons.globe),
-            label: 'Countries Settings',
-          ),
+              icon: new Icon(FontAwesomeIcons.globe),
+              label: LocaleKeys.bottomNav_tab2.locale),
         ],
       ),
     );
