@@ -10,7 +10,7 @@ class SharedManager {
     return _instance!;
   }
 
-  late SharedPreferences preferences;
+  late SharedPreferences? preferences;
   SharedManager._init() {
     initPreferences();
   }
@@ -19,19 +19,19 @@ class SharedManager {
     preferences = await SharedPreferences.getInstance();
   }
 
-  Future<void> saveStringValue(String key, String value) async {
-    await preferences.setString(key, value);
+  Future<void> saveStringValue(String key, String? value) async {
+    await preferences!.setString(key, value!);
   }
 
-  String getStringValue(String key) {
-    return preferences.getString(key) ?? 'Null';
+  String? getStringValue(String key) {
+    return preferences!.getString(key) ?? null;
   }
 
   Future<void> saveIntValue(String key, int? value) async {
-    await preferences.setInt(key, value!);
+    await preferences!.setInt(key, value!);
   }
 
   int? getIntValue(String key) {
-    return preferences.getInt(key) ?? null;
+    return preferences!.getInt(key) ?? null;
   }
 }

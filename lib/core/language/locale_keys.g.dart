@@ -25,5 +25,7 @@ abstract class  LocaleKeys {
   static const bottomNav = 'bottomNav';
   static const newsDetails_goArticleButton = 'newsDetails.goArticleButton';
   static const newsDetails = 'newsDetails';
+  static const newsCountrySettings_title = 'newsCountrySettings.title';
+  static const newsCountrySettings = 'newsCountrySettings';
 
 }

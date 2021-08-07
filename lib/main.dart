@@ -13,6 +13,7 @@ import 'core/navigation/notifier/provider_list.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedManager.instance.initPreferences();
+  await EasyLocalization.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
               elevation: 0,
               actionsIconTheme: IconThemeData(color: Colors.white)),
           textTheme: TextTheme(headline6: TextStyle(color: Colors.black))),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
       navigatorKey: NavigationService.instance.navigatorKey,
       initialRoute: NavigationConstants.HOME_VIEW,
