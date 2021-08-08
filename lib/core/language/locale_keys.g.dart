@@ -27,5 +27,12 @@ abstract class  LocaleKeys {
   static const newsDetails = 'newsDetails';
   static const newsCountrySettings_title = 'newsCountrySettings.title';
   static const newsCountrySettings = 'newsCountrySettings';
+  static const errors_noInternetError_text = 'errors.noInternetError.text';
+  static const errors_noInternetError = 'errors.noInternetError';
+  static const errors_fetchDataError_text = 'errors.fetchDataError.text';
+  static const errors_fetchDataError = 'errors.fetchDataError';
+  static const errors = 'errors';
+  static const refreshScreen_text = 'refreshScreen.text';
+  static const refreshScreen = 'refreshScreen';
 
 }

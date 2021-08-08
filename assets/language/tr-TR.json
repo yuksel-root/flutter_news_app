@@ -33,8 +33,21 @@
 
     "newsCountrySettings":{
         "title":"Ülke Seçiniz"
+    },
+
+    "errors" : {
+        "noInternetError":{
+            "text":"Lütfen internet bağlantınızı kontrol ediniz."
+        },
+    
+        "fetchDataError":{
+            "text":"Haber verileri yüklenemedi..."
+        }
+    },
+
+    "refreshScreen":{
+        "text":"Yenilemek için ekranı aşağı çekiniz."
     }
-
-
+   
     
 }

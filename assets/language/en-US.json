@@ -33,7 +33,21 @@
 
     "newsCountrySettings":{
         "title":"Select Country"
-    }
+    },
 
+    "errors" : {
+        "noInternetError":{
+            "text":"Please check your internet connection."
+        },
+    
+        "fetchDataError":{
+            "text":"News data not be loaded..."
+        } 
+    },
+
+    "refreshScreen":{
+        "text":"Pull down to refresh."
+    }
+   
 
 }
