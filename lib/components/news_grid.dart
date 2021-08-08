@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_with_api/components/circle_images.dart';
+import 'package:flutter_news_app_with_api/components/news_image.dart';
 import 'package:flutter_news_app_with_api/core/constants/categories_constants.dart';
 import 'package:flutter_news_app_with_api/core/constants/navigation_constants.dart';
 import 'package:flutter_news_app_with_api/core/navigation/navigation_service.dart';
-import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_navigation_notifier.dart';
+import 'package:flutter_news_app_with_api/core/notifier/tabbar_navigation_notifier.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
 import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
 import 'package:flutter_news_app_with_api/core/extension/string_extension.dart';
@@ -36,7 +36,7 @@ class NewsGrid extends StatelessWidget {
                   horizontal: context.dynamicWidth(0.0277),
                   vertical: context.dynamicHeight(0.001)),
               child: Stack(children: [
-                CircleImages(
+                NewsImage(
                   imageUrl: article.imageUrl,
                   imageRadius: 10,
                 ),

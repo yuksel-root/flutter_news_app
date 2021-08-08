@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_with_api/components/circle_images.dart';
+import 'package:flutter_news_app_with_api/components/news_image.dart';
 import 'package:flutter_news_app_with_api/core/constants/categories_constants.dart';
 import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
+import 'package:flutter_news_app_with_api/core/notifier/tabbar_navigation_notifier.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
-import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_navigation_notifier.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:flutter_news_app_with_api/core/extension/string_extension.dart';
@@ -68,7 +68,7 @@ class NewsDetailsView extends StatelessWidget {
       body: ListView(children: [
         SizedBox(
           height: context.dynamicHeight(0.35),
-          child: CircleImages(
+          child: NewsImage(
             imageUrl: this.article!.imageUrl,
             imageRadius: 0,
           ),

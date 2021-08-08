@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/core/language/language_manager.dart';
 import 'package:flutter_news_app_with_api/core/navigation/navigation_service.dart';
-import 'package:flutter_news_app_with_api/core/navigation/notifier/bottom_navigation_notifier.dart';
-import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_navigation_notifier.dart';
+import 'package:flutter_news_app_with_api/core/notifier/bottom_navigation_notifier.dart';
+import 'package:flutter_news_app_with_api/core/notifier/tabbar_navigation_notifier.dart';
 import 'package:flutter_news_app_with_api/core/preferences/shared_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';

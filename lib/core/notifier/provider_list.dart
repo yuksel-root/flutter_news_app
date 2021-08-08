@@ -1,10 +1,11 @@
-import 'package:flutter_news_app_with_api/core/navigation/notifier/bottom_navigation_notifier.dart';
+import 'package:flutter_news_app_with_api/core/navigation/navigation_service.dart';
+import 'package:flutter_news_app_with_api/core/notifier/connectivity_notifier.dart';
+import 'package:flutter_news_app_with_api/core/notifier/tabbar_navigation_notifier.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
-import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_navigation_notifier.dart';
 import 'package:flutter_news_app_with_api/view_models/news_country_settings_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import '../navigation_service.dart';
+import 'bottom_navigation_notifier.dart';
 
 class ApplicationProvider {
   static ApplicationProvider? _instance;
@@ -15,6 +16,9 @@ class ApplicationProvider {
 
   ApplicationProvider._init();
   List<SingleChildWidget> dependItems = [
+    ChangeNotifierProvider(
+      create: (context) => ConnectivityProvider(),
+    ),
     ChangeNotifierProvider(
       create: (context) => NewsArticleListViewModel(),
     ),

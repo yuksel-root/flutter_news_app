@@ -8,7 +8,7 @@ import 'package:flutter_news_app_with_api/core/preferences/shared_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'core/language/language_manager.dart';
-import 'core/navigation/notifier/provider_list.dart';
+import 'core/notifier/provider_list.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

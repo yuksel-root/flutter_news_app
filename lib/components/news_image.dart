@@ -1,13 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class CircleImages extends StatelessWidget {
+class NewsImage extends StatelessWidget {
   final imageUrl;
   final double imageRadius;
-  const CircleImages(
-      {Key? key, required this.imageUrl, required this.imageRadius})
+  const NewsImage({Key? key, required this.imageUrl, required this.imageRadius})
       : super(key: key);
-// child:Image.network(listViewModel.articles[index].imageUrl)
+
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
