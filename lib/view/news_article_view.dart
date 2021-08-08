@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app_with_api/components/news_error.dart';
 import 'package:flutter_news_app_with_api/components/news_grid.dart';
+import 'package:flutter_news_app_with_api/core/extension/string_extension.dart';
+import 'package:flutter_news_app_with_api/core/language/locale_keys.g.dart';
+import 'package:flutter_news_app_with_api/core/notifier/connectivity_notifier.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -10,13 +14,23 @@ class NewsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xe61c0f45),
-        body: context.watch<NewsArticleListViewModel>().state ==
-                ArticleState.searching
-            ? buildLoadingWidget()
-            : context.watch<NewsArticleListViewModel>().state ==
-                    ArticleState.error
-                ? buildErrorWidget()
-                : buildColumnExpandedNewsGrid(context));
+        body: context.watch<ConnectivityProvider>().isConnected != null
+            ? context.watch<ConnectivityProvider>().isConnected == true
+                ? context.watch<NewsArticleListViewModel>().state ==
+                        ArticleState.searching
+                    ? buildLoadingWidget()
+                    : context.watch<NewsArticleListViewModel>().state ==
+                            ArticleState.error
+                        ? NewsError(
+                            errorText: LocaleKeys.errors_fetchDataError.locale,
+                            refreshText: LocaleKeys.refreshScreen_text.locale,
+                          )
+                        : buildColumnExpandedNewsGrid(context)
+                : NewsError(
+                    errorText: LocaleKeys.errors_noInternetError_text.locale,
+                    refreshText: LocaleKeys.refreshScreen_text.locale,
+                  )
+            : buildLoadingWidget());
   }
 
   Column buildColumnExpandedNewsGrid(BuildContext context) {
@@ -32,7 +46,6 @@ class NewsView extends StatelessWidget {
     );
   }
 
-  Center buildErrorWidget() => Center(child: Text('Something went wrong!'));
   Center buildLoadingWidget() => Center(
           child: CircularProgressIndicator(
         color: Colors.green,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app_with_api/core/notifier/bottom_navigation_notifier.dart';
+import 'package:flutter_news_app_with_api/core/notifier/connectivity_notifier.dart';
 import 'package:flutter_news_app_with_api/view/tabbar_view.dart';
-import 'package:flutter_news_app_with_api/core/navigation/notifier/bottom_navigation_notifier.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'news_article_country_settings_view.dart';
@@ -20,8 +21,15 @@ class _BottomTabbarViewState extends State<BottomTabbarView> {
     NewsCountrySettingsView(),
   ];
   @override
+  void initState() {
+    super.initState();
+    Provider.of<ConnectivityProvider>(context, listen: false)
+        .listenConnectivity();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<BottomNavigationProvider>(context);
+    final provider = Provider.of<BottomNavigationProvider>(context);
 
     return Scaffold(
       body: currentScreen[provider.currentIndex],

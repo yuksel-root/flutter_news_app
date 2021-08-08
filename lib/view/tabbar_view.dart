@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/core/constants/categories_constants.dart';
 import 'package:flutter_news_app_with_api/core/constants/country_constants.dart';
+import 'package:flutter_news_app_with_api/core/notifier/connectivity_notifier.dart';
+import 'package:flutter_news_app_with_api/core/notifier/tabbar_navigation_notifier.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
-import 'package:flutter_news_app_with_api/core/navigation/notifier/tabbar_navigation_notifier.dart';
 import 'package:flutter_news_app_with_api/view_models/news_country_settings_view_model.dart';
 import 'package:provider/provider.dart';
 import 'news_article_view.dart';
@@ -30,7 +31,8 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
     Provider.of<NewsArticleListViewModel>(context, listen: false)
         .topHeadlinesByCountry(
             CountryConstants.listCountry[getCountryIndex]['countryCode']);
-    Provider.of<TabbarNavigationProvider>(context, listen: false);
+    Provider.of<ConnectivityProvider>(context, listen: false)
+        .listenConnectivity();
   }
 
   @override
