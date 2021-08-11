@@ -5,25 +5,23 @@ import 'package:flutter/services.dart';
 class ConnectivityProvider with ChangeNotifier {
   Connectivity _connectivity = new Connectivity();
 
-  bool? _isConnected = false;
+  bool? _isConnected;
   bool? get isConnected => _isConnected ?? null;
   set setIsConnected(bool isConnect) {
     _isConnected = isConnect;
     notifyListeners();
   }
 
-  listenConnectivity() async {
+  Future<void> listenConnectivity() async {
     await initConnectivity();
     _connectivity.onConnectivityChanged.listen((
       ConnectivityResult result,
     ) async {
       if (result == ConnectivityResult.none) {
         setIsConnected = false;
-        notifyListeners();
       } else {
         await _updateConnectionStatus(result).then((bool isConnect) {
           setIsConnected = isConnect;
-          notifyListeners();
         });
       }
     });
@@ -39,7 +37,8 @@ class ConnectivityProvider with ChangeNotifier {
     }
   }
 
-  Future<bool> _updateConnectionStatus(connectionStatus) async {
+  Future<bool> _updateConnectionStatus(
+      ConnectivityResult connectionStatus) async {
     //check which way for internet connection mobile or wifi
     if (connectionStatus == ConnectivityResult.none) {
       setIsConnected = false;

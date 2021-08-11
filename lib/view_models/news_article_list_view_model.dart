@@ -14,7 +14,7 @@ enum ArticleState {
 }
 
 class NewsArticleListViewModel with ChangeNotifier {
-  late ArticleState _state;
+  late ArticleState? _state;
   late List<NewsArticleViewModel> articles;
   late List<NewsArticle> newsArticles;
 
@@ -24,7 +24,7 @@ class NewsArticleListViewModel with ChangeNotifier {
     _state = ArticleState.empty;
   }
 
-  ArticleState get state => _state;
+  ArticleState get state => _state!;
   set state(ArticleState state) {
     _state = state;
   }
@@ -37,7 +37,7 @@ class NewsArticleListViewModel with ChangeNotifier {
     }
   }
 
-  void topHeadlinesByCountry(String country) async {
+  Future<void> topHeadlinesByCountry(String country) async {
     try {
       state = ArticleState.searching;
       newsArticles = await ApiService().fetchHeadlinesByCountry(country);
@@ -54,7 +54,7 @@ class NewsArticleListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void topHeadlines() async {
+  Future<void> topHeadlines() async {
     try {
       state = ArticleState.searching;
       newsArticles = await ApiService().fetchTopHeadlines();
@@ -71,11 +71,11 @@ class NewsArticleListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void topHeadlinesCategory(String country, String category) async {
+  Future<void> topHeadlinesCategory(String country, String? category) async {
     try {
       state = ArticleState.searching;
       newsArticles =
-          await ApiService().fetchTopHeadlinesCategory(country, category);
+          await ApiService().fetchTopHeadlinesCategory(country, category!);
       state = ArticleState.completed;
 
       this.articles = newsArticles
