@@ -4,6 +4,7 @@ import 'package:flutter_news_app_with_api/components/news_grid.dart';
 import 'package:flutter_news_app_with_api/core/extension/string_extension.dart';
 import 'package:flutter_news_app_with_api/core/language/locale_keys.g.dart';
 import 'package:flutter_news_app_with_api/core/notifier/connectivity_notifier.dart';
+import 'package:flutter_news_app_with_api/services/api_service.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -35,12 +36,16 @@ class NewsView extends StatelessWidget {
 
   Column buildColumnExpandedNewsGrid(BuildContext context) {
     final listArticles = context.read<NewsArticleListViewModel>().articles;
+    final categories = ApiService().getAllCategories();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(
-          child: NewsGrid(articles: listArticles),
+          child: NewsGrid(
+            articles: listArticles,
+            categories: categories,
+          ),
         ),
       ],
     );

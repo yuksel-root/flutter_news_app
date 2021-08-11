@@ -1,6 +1,6 @@
 import 'package:flutter_news_app_with_api/core/language/locale_keys.g.dart';
 
-class CategoriesConstants {
+class CategoryConstants {
   static List<dynamic> listCategory = <dynamic>[
     {
       'categoryName': LocaleKeys.categories_tab1,

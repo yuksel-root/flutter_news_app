@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/news_image.dart';
-import 'package:flutter_news_app_with_api/core/constants/categories_constants.dart';
-import 'package:flutter_news_app_with_api/core/constants/country_constants.dart';
 import 'package:flutter_news_app_with_api/core/constants/navigation_constants.dart';
 import 'package:flutter_news_app_with_api/core/navigation/navigation_service.dart';
 import 'package:flutter_news_app_with_api/core/notifier/tabbar_navigation_notifier.dart';
+import 'package:flutter_news_app_with_api/models/news_categories.dart';
+import 'package:flutter_news_app_with_api/models/news_country.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
 import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
@@ -15,8 +15,11 @@ import 'package:provider/provider.dart';
 class NewsGrid extends StatelessWidget {
   final NavigationService navigation = NavigationService.instance;
   final List<NewsArticleViewModel> articles;
+  final List<NewsCategory>? categories;
+  final List<NewsCountry>? countries;
 
-  NewsGrid({Key? key, required this.articles}) : super(key: key);
+  NewsGrid({Key? key, required this.articles, this.categories, this.countries})
+      : super(key: key);
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
@@ -34,10 +37,12 @@ class NewsGrid extends StatelessWidget {
       color: Colors.greenAccent,
       key: _refreshIndicatorKey,
       onRefresh: () => listViewModel.topHeadlinesCategory(
-          CountryConstants.listCountry[countrySettingsModel.getCountryIndex]
-              ['countryCode'],
-          CategoriesConstants.listCategory[tabbarProv.currentIndex]
-              ['categoryCode']),
+          countries!
+              .map((country) => country.countryCode!)
+              .elementAt(countrySettingsModel.getCountryIndex),
+          categories!
+              .map((categori) => categori.categoryCode)
+              .elementAt(tabbarProv.currentIndex)),
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1, childAspectRatio: 2, mainAxisSpacing: 5),
@@ -86,11 +91,12 @@ class NewsGrid extends StatelessWidget {
                                       horizontal: context.dynamicWidth(0.01),
                                       vertical: 0),
                                   child: Text(
-                                      CategoriesConstants
-                                          .listCategory[tabbarProv.currentIndex]
-                                              ['categoryName']
-                                          .toString()
-                                          .locale,
+                                      categories!
+                                          .map((categori) => categori
+                                              .categoryName
+                                              .toString()
+                                              .locale)
+                                          .elementAt(tabbarProv.currentIndex),
                                       style: TextStyle(
                                           fontSize:
                                               context.dynamicHeight(0.025),

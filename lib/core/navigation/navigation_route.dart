@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/core/constants/navigation_constants.dart';
+import 'package:flutter_news_app_with_api/services/api_service.dart';
 import 'package:flutter_news_app_with_api/view/bottom_tabbar_view.dart';
 import 'package:flutter_news_app_with_api/view/news_article_details_view.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
@@ -22,6 +23,7 @@ class NavigationRoute {
         if (settings?.arguments is NewsArticleViewModel) {
           return pageNavigate(NewsDetailsView(
             article: settings!.arguments as NewsArticleViewModel,
+            categories: ApiService().getAllCategories(),
           ));
         }
         throw ("Article model is not Found");

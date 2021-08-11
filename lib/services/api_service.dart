@@ -1,7 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
+import 'package:flutter_news_app_with_api/core/constants/category_constants.dart';
+import 'package:flutter_news_app_with_api/core/constants/country_constants.dart';
 import 'package:flutter_news_app_with_api/models/news_article.dart';
 import 'dart:developer' as developer;
+
+import 'package:flutter_news_app_with_api/models/news_categories.dart';
+import 'package:flutter_news_app_with_api/models/news_country.dart';
 
 class ApiService {
   late Dio _dio; //= new Dio();
@@ -28,6 +33,22 @@ class ApiService {
     } else {
       throw Exception("Failed to get top news with country");
     }
+  }
+
+  List<NewsCategory>? getAllCategories() {
+    final categories = CategoryConstants.listCategory;
+
+    return categories
+        .map((categories) => NewsCategory.fromJson(categories))
+        .toList();
+  }
+
+  List<NewsCountry>? getAllCountries() {
+    final countries = CountryConstants.listCountry;
+
+    return countries
+        .map((countries) => NewsCountry.fromJson(countries))
+        .toList();
   }
 
   Future<List<NewsArticle>> fetchTopHeadlines() async {

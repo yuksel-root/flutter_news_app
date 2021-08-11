@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/news_image.dart';
-import 'package:flutter_news_app_with_api/core/constants/categories_constants.dart';
 import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
 import 'package:flutter_news_app_with_api/core/notifier/tabbar_navigation_notifier.dart';
+import 'package:flutter_news_app_with_api/models/news_categories.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +12,8 @@ import 'package:flutter_news_app_with_api/core/language/locale_keys.g.dart';
 
 class NewsDetailsView extends StatelessWidget {
   final NewsArticleViewModel? article;
-  const NewsDetailsView({Key? key, required this.article}) : super(key: key);
+  final List<NewsCategory>? categories;
+  NewsDetailsView({Key? key, this.article, this.categories}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,6 @@ class NewsDetailsView extends StatelessWidget {
     final tabbarNavProv = Provider.of<TabbarNavigationProvider>(context);
     final newsListViewModel =
         Provider.of<NewsArticleListViewModel>(context, listen: false);
-
     return Scaffold(
       appBar: AppBar(
           title: Row(
@@ -103,10 +103,9 @@ class NewsDetailsView extends StatelessWidget {
                             horizontal: context.dynamicWidth(0.01),
                             vertical: 0),
                         child: Text(
-                            CategoriesConstants
-                                .listCategory[tabbarNavProv.currentIndex]
-                                    ['categoryName']
-                                .toString()
+                            categories!
+                                .map((c) => c.categoryName)
+                                .elementAt(tabbarNavProv.currentIndex)!
                                 .locale,
                             style: TextStyle(
                                 fontSize: context.dynamicHeight(0.025),
@@ -164,7 +163,9 @@ class NewsDetailsView extends StatelessWidget {
                     ),
                     SizedBox(width: context.dynamicWidth(0.50)),
                     Text(
-                      this.article!.author,
+                      this.article!.author.contains(".")
+                          ? article!.author.split(".").elementAt(0)
+                          : article!.author,
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1

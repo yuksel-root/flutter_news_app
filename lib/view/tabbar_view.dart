@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app_with_api/core/constants/categories_constants.dart';
-import 'package:flutter_news_app_with_api/core/constants/country_constants.dart';
 import 'package:flutter_news_app_with_api/core/notifier/connectivity_notifier.dart';
 import 'package:flutter_news_app_with_api/core/notifier/tabbar_navigation_notifier.dart';
+import 'package:flutter_news_app_with_api/models/news_categories.dart';
+import 'package:flutter_news_app_with_api/models/news_country.dart';
+import 'package:flutter_news_app_with_api/services/api_service.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:flutter_news_app_with_api/view_models/news_country_settings_view_model.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,9 @@ import 'news_article_view.dart';
 import 'package:flutter_news_app_with_api/core/extension/string_extension.dart';
 
 class NewsTabbarView extends StatefulWidget {
-  NewsTabbarView({Key? key}) : super(key: key);
+  final List<NewsCategory>? categories;
+  final List<NewsCountry>? countries;
+  NewsTabbarView({Key? key, this.categories, this.countries}) : super(key: key);
 
   @override
   _NewsTabbarViewState createState() => _NewsTabbarViewState();
@@ -20,17 +23,21 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
     with TickerProviderStateMixin {
   late TabController tabController;
   var getCountryIndex;
+  late List<NewsCategory>? categories;
+  late List<NewsCountry>? countries;
   @override
   void initState() {
     super.initState();
+    categories = ApiService().getAllCategories();
+    countries = ApiService().getAllCountries();
     getCountryIndex =
         Provider.of<NewsCountrySettingsViewModel>(context, listen: false)
             .getCountryIndex;
-    tabController = TabController(
-        length: CategoriesConstants.listCategory.length, vsync: this);
+    tabController = TabController(length: categories!.length, vsync: this);
     Provider.of<NewsArticleListViewModel>(context, listen: false)
-        .topHeadlinesByCountry(
-            CountryConstants.listCountry[getCountryIndex]['countryCode']);
+        .topHeadlinesByCountry(countries!
+            .map((country) => country.countryCode!)
+            .elementAt(getCountryIndex));
     Provider.of<ConnectivityProvider>(context, listen: false)
         .listenConnectivity();
   }
@@ -50,19 +57,20 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
         Provider.of<NewsCountrySettingsViewModel>(context, listen: false);
     //developer.log("tab" + countrySettingsModel.getCountryIndex.toString());
     return DefaultTabController(
-      length: CategoriesConstants.listCategory.length,
+      length: categories!.length,
       initialIndex: tabbarNavProv.currentIndex,
       child: Builder(builder: (BuildContext context) {
         final TabController tabController = DefaultTabController.of(context)!;
         tabController.addListener(() {
           if (!tabController.indexIsChanging) {
-            listViewModel.topHeadlinesCategory(
-                CountryConstants
-                        .listCountry[countrySettingsModel.getCountryIndex]
-                    ['countryCode'],
-                CategoriesConstants.listCategory[tabController.index]
-                    ['categoryCode']);
             tabbarNavProv.currentIndex = tabController.index;
+            listViewModel.topHeadlinesCategory(
+                countries!
+                    .map((country) => country.countryCode!)
+                    .elementAt(countrySettingsModel.getCountryIndex),
+                categories!
+                    .map((categori) => categori.categoryCode)
+                    .elementAt(tabbarNavProv.currentIndex));
           }
         });
         return Scaffold(
@@ -71,16 +79,16 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
             bottom: TabBar(
               indicatorColor: Colors.greenAccent,
               isScrollable: true,
-              tabs: CategoriesConstants.listCategory
+              tabs: categories!
                   .map(
-                    (e) => Tab(text: e['categoryName'].toString().locale),
+                    (e) => Tab(text: e.categoryName.toString().locale),
                   )
                   .toList(),
             ),
           ),
           body: TabBarView(
             children: List<Widget>.generate(
-                CategoriesConstants.listCategory.length, (index) => NewsView()),
+                categories!.length, (index) => NewsView()),
           ),
         );
       }),

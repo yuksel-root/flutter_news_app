@@ -1,27 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/news_error.dart';
-import 'package:flutter_news_app_with_api/core/constants/country_constants.dart';
 import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
 import 'package:flutter_news_app_with_api/core/language/locale_keys.g.dart';
 import 'package:flutter_news_app_with_api/core/notifier/connectivity_notifier.dart';
+import 'package:flutter_news_app_with_api/models/news_country.dart';
+import 'package:flutter_news_app_with_api/services/api_service.dart';
 import 'dart:developer' as developer;
 import 'package:flutter_news_app_with_api/view_models/news_country_settings_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_news_app_with_api/core/extension/string_extension.dart';
 
-class NewsCountrySettingsView extends StatelessWidget {
-  NewsCountrySettingsView({Key? key}) : super(key: key);
+class NewsCountrySettingsView extends StatefulWidget {
+  final List<NewsCountry>? countries;
+  NewsCountrySettingsView({Key? key, this.countries}) : super(key: key);
+
+  @override
+  _NewsCountrySettingsViewState createState() =>
+      _NewsCountrySettingsViewState();
+}
+
+class _NewsCountrySettingsViewState extends State<NewsCountrySettingsView> {
+  late List<NewsCountry>? countries;
+  @override
+  void initState() {
+    super.initState();
+    countries = ApiService().getAllCountries();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print(countries?.length);
     final title = LocaleKeys.newsCountrySettings_title;
     final countryModel =
         Provider.of<NewsCountrySettingsViewModel>(context, listen: false);
+
     developer.log("imageWidth " + context.dynamicWidth(0.065).toString());
     developer.log("totalWidth " + context.dynamicWidth(1).toString());
 
     final items = List<ListTile>.generate(
-      CountryConstants.listCountry.length,
+      countries!.length,
       (index) => ListTile(
         leading: Container(
             height: context.dynamicWidth(0.065) < 44
@@ -42,13 +59,17 @@ class NewsCountrySettingsView extends StatelessWidget {
                       ? context.dynamicWidth(0.065)
                       : 50),
               child: new Image.asset(
-                  CountryConstants.listCountry[index]['imagePath'],
+                  countries!
+                      .map((country) => country.countryImage!)
+                      .elementAt(countryModel.getCountryIndex),
                   height: context.dynamicWidth(0.065),
                   width: context.dynamicWidth(0.065),
                   fit: BoxFit.cover),
             )),
         title: Text(
-          CountryConstants.listCountry[index]['countryName'].toString().locale,
+          countries!
+              .map((country) => country.countryName!.locale)
+              .elementAt(countryModel.getCountryIndex),
           style: Theme.of(context)
               .textTheme
               .subtitle1
@@ -74,7 +95,7 @@ class NewsCountrySettingsView extends StatelessWidget {
             ? ListView.separated(
                 padding: const EdgeInsets.all(0),
                 shrinkWrap: true,
-                itemCount: CountryConstants.listCountry.length,
+                itemCount: countries!.length,
                 itemBuilder: (BuildContext ctx, int index) {
                   final item = items[index];
                   return Column(
