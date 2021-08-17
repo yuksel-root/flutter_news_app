@@ -1,20 +1,26 @@
+import 'package:flutter_news_app_with_api/models/news_categories.dart';
+import 'package:flutter_news_app_with_api/models/news_country.dart';
+import 'category_constants.dart';
+import 'country_constants.dart';
+
 class ApiConstants {
-  static const String apiKey = 'cafd035f5d764660adf678dfcf14b982';
+  static const String apiKey = '241e074b3c3945cf850407a246c8b648';
   static const String baseUrl = 'https://newsapi.org/v2/';
-  static const String topHeadlines = 'top-headlines?country=';
+  static const String topHeadlines = 'top-headlines';
 
-  static const String defaultTopHeadlinesUrl =
-      baseUrl + topHeadlines + 'tr&apiKey=$apiKey';
+  List<NewsCategory>? getAllCategories() {
+    final categories = CategoryConstants.listCategory;
 
-  static String headlinesFor(String country) {
-    return baseUrl + topHeadlines + '$country&apiKey=$apiKey';
+    return categories
+        .map((categories) => NewsCategory.fromJson(categories))
+        .toList();
   }
 
-  static String topHeadlinesForCategory(String country, String category) {
-    return baseUrl +
-        topHeadlines +
-        '$country' +
-        '&category=$category' +
-        '&apiKey=$apiKey';
+  List<NewsCountry>? getAllCountries() {
+    final countries = CountryConstants.listCountry;
+
+    return countries
+        .map((countries) => NewsCountry.fromJson(countries))
+        .toList();
   }
 }
