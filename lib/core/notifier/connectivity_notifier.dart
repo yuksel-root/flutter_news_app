@@ -4,8 +4,9 @@ import 'package:flutter/services.dart';
 
 class ConnectivityProvider with ChangeNotifier {
   Connectivity _connectivity = new Connectivity();
-
+  ConnectivityResult? connectionStatus;
   bool? _isConnected;
+
   bool? get isConnected => _isConnected ?? null;
   set setIsConnected(bool isConnect) {
     _isConnected = isConnect;
@@ -29,7 +30,7 @@ class ConnectivityProvider with ChangeNotifier {
 
   Future<void> initConnectivity() async {
     //platform exception catch
-    ConnectivityResult connectionStatus = ConnectivityResult.none;
+    connectionStatus = ConnectivityResult.none;
     try {
       connectionStatus = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
