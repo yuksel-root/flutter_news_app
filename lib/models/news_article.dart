@@ -1,4 +1,6 @@
-class NewsArticle {
+import 'package:flutter_news_app_with_api/core/models/base_model.dart';
+
+class NewsArticle extends BaseModel {
   final String? title;
   final String? author;
   final String? description;
@@ -7,18 +9,20 @@ class NewsArticle {
   final String? publishedAt;
   final String? content;
   final String? source;
+
   NewsArticle({
-    required this.title,
-    required this.author,
-    required this.description,
-    required this.urlToImage,
-    required this.url,
-    required this.publishedAt,
-    required this.content,
-    required this.source,
+    this.title,
+    this.author,
+    this.description,
+    this.urlToImage,
+    this.url,
+    this.publishedAt,
+    this.content,
+    this.source,
   });
 
-  factory NewsArticle.fromJson(Map<String, dynamic> json) {
+  @override
+  NewsArticle fromJson(Map<String, dynamic> json) {
     return NewsArticle(
         title: json['title'] as String?,
         author: json['author'] as String?,

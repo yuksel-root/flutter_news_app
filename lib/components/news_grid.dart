@@ -36,7 +36,7 @@ class NewsGrid extends StatelessWidget {
     return RefreshIndicator(
       color: Colors.greenAccent,
       key: _refreshIndicatorKey,
-      onRefresh: () => listViewModel.topHeadlinesCategory(
+      onRefresh: () => listViewModel.topHeadlinesCategoryWithCountry(
           countries!
               .map((country) => country.countryCode!)
               .elementAt(countrySettingsModel.getCountryIndex),

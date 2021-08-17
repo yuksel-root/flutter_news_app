@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
+import 'package:flutter_news_app_with_api/core/network/network_service.dart';
 import 'package:flutter_news_app_with_api/core/notifier/connectivity_notifier.dart';
 import 'package:flutter_news_app_with_api/core/notifier/tabbar_navigation_notifier.dart';
 import 'package:flutter_news_app_with_api/models/news_categories.dart';
 import 'package:flutter_news_app_with_api/models/news_country.dart';
-import 'package:flutter_news_app_with_api/services/api_service.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_list_view_model.dart';
 import 'package:flutter_news_app_with_api/view_models/news_country_settings_view_model.dart';
 import 'package:provider/provider.dart';
@@ -25,11 +26,12 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
   var getCountryIndex;
   late List<NewsCategory>? categories;
   late List<NewsCountry>? countries;
+  final NetworkService networkManager = NetworkService.instance;
   @override
   void initState() {
     super.initState();
-    categories = ApiService().getAllCategories();
-    countries = ApiService().getAllCountries();
+    categories = ApiConstants().getAllCategories();
+    countries = ApiConstants().getAllCountries();
     getCountryIndex =
         Provider.of<NewsCountrySettingsViewModel>(context, listen: false)
             .getCountryIndex;
@@ -64,7 +66,7 @@ class _NewsTabbarViewState extends State<NewsTabbarView>
         tabController.addListener(() {
           if (!tabController.indexIsChanging) {
             tabbarNavProv.currentIndex = tabController.index;
-            listViewModel.topHeadlinesCategory(
+            listViewModel.topHeadlinesCategoryWithCountry(
                 countries!
                     .map((country) => country.countryCode!)
                     .elementAt(countrySettingsModel.getCountryIndex),

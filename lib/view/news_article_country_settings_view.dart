@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/components/news_error.dart';
+import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/core/extension/context_extension.dart';
 import 'package:flutter_news_app_with_api/core/language/locale_keys.g.dart';
+import 'package:flutter_news_app_with_api/core/network/network_service.dart';
 import 'package:flutter_news_app_with_api/core/notifier/connectivity_notifier.dart';
 import 'package:flutter_news_app_with_api/models/news_country.dart';
-import 'package:flutter_news_app_with_api/services/api_service.dart';
-import 'dart:developer' as developer;
 import 'package:flutter_news_app_with_api/view_models/news_country_settings_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_news_app_with_api/core/extension/string_extension.dart';
@@ -21,21 +21,18 @@ class NewsCountrySettingsView extends StatefulWidget {
 
 class _NewsCountrySettingsViewState extends State<NewsCountrySettingsView> {
   late List<NewsCountry>? countries;
+  final NetworkService networkManager = NetworkService.instance;
   @override
   void initState() {
     super.initState();
-    countries = ApiService().getAllCountries();
+    countries = ApiConstants().getAllCountries();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(countries?.length);
     final title = LocaleKeys.newsCountrySettings_title;
     final countryModel =
         Provider.of<NewsCountrySettingsViewModel>(context, listen: false);
-
-    developer.log("imageWidth " + context.dynamicWidth(0.065).toString());
-    developer.log("totalWidth " + context.dynamicWidth(1).toString());
 
     final items = List<ListTile>.generate(
       countries!.length,
@@ -61,7 +58,7 @@ class _NewsCountrySettingsViewState extends State<NewsCountrySettingsView> {
               child: new Image.asset(
                   countries!
                       .map((country) => country.countryImage!)
-                      .elementAt(countryModel.getCountryIndex),
+                      .elementAt(index),
                   height: context.dynamicWidth(0.065),
                   width: context.dynamicWidth(0.065),
                   fit: BoxFit.cover),
@@ -69,7 +66,7 @@ class _NewsCountrySettingsViewState extends State<NewsCountrySettingsView> {
         title: Text(
           countries!
               .map((country) => country.countryName!.locale)
-              .elementAt(countryModel.getCountryIndex),
+              .elementAt(index),
           style: Theme.of(context)
               .textTheme
               .subtitle1
