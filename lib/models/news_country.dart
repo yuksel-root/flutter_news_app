@@ -2,12 +2,9 @@ class NewsCountry {
   final String? countryName;
   final String? countryCode;
   final String? countryImage;
-  NewsCountry(
-      {required this.countryName,
-      required this.countryCode,
-      required this.countryImage});
+  NewsCountry({this.countryName, this.countryCode, this.countryImage});
 
-  factory NewsCountry.fromJson(Map<String, dynamic> json) {
+  NewsCountry fromJson(Map<String, dynamic> json) {
     return NewsCountry(
       countryName: json['countryName'] as String?,
       countryCode: json['countryCode'] as String?,

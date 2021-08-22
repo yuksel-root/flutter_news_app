@@ -12,7 +12,7 @@ class ApiConstants {
     final categories = CategoryConstants.listCategory;
 
     return categories
-        .map((categories) => NewsCategory.fromJson(categories))
+        .map((categories) => NewsCategory().fromJson(categories))
         .toList();
   }
 
@@ -20,7 +20,7 @@ class ApiConstants {
     final countries = CountryConstants.listCountry;
 
     return countries
-        .map((countries) => NewsCountry.fromJson(countries))
+        .map((countries) => NewsCountry().fromJson(countries))
         .toList();
   }
 }
