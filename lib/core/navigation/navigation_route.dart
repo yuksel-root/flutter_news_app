@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app_with_api/core/constants/api_constants.dart';
 import 'package:flutter_news_app_with_api/core/constants/navigation_constants.dart';
 import 'package:flutter_news_app_with_api/view/bottom_tabbar_view.dart';
+import 'package:flutter_news_app_with_api/view/login_view.dart';
 import 'package:flutter_news_app_with_api/view/news_article_details_view.dart';
 import 'package:flutter_news_app_with_api/view_models/news_article_view_model.dart';
 
@@ -14,6 +15,9 @@ class NavigationRoute {
     print('Generating route: ${settings?.name}');
 
     switch (settings?.name) {
+      case NavigationConstants.LOGIN_VIEW:
+        print("LoginView");
+        return pageNavigate(LoginView());
       case NavigationConstants.HOME_VIEW:
         print("BotomTabbarView");
         return pageNavigate(BottomTabbarView());

@@ -65,6 +65,7 @@ flutter:
   assets:
       - assets/icons/flags/png/w100px/
       - assets/language/
+      - assets/login/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

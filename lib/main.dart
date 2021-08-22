@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
       navigatorKey: NavigationService.instance.navigatorKey,
-      initialRoute: NavigationConstants.HOME_VIEW,
+      initialRoute: NavigationConstants.LOGIN_VIEW,
     );
   }
 }
